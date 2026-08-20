@@ -2,7 +2,7 @@
 import { faker } from '@faker-js/faker';
 
 describe('Funcionalidade: Cadastro no Hub de Leitura', () => {
-    
+
     beforeEach(() => {
         cy.visit('register.html')
     });
@@ -20,13 +20,13 @@ describe('Funcionalidade: Cadastro no Hub de Leitura', () => {
         cy.url().should('include', 'dashboard')
     });
 
-it.only('Devo fazer cadastro com sucesso usando FAKER', () => {
-    let nome = faker.person.fullName()
-    let email = faker.internet.email()
-    let phone = `${Date.now()}`
+    it('Devo fazer cadastro com sucesso usando FAKER', () => {
+        let nome = faker.person.fullName()
+        let email = faker.internet.email()
+        let telefone = `${Date.now()}`
         cy.get('#name').type(nome)
         cy.get('#email').type(email)
-        cy.get('#phone').type(phone)
+        cy.get('#phone').type(telefone)
         cy.get('#password').type('123456')
         cy.get('#confirm-password').type('123456')
         cy.get('#terms-agreement').check()
@@ -34,6 +34,20 @@ it.only('Devo fazer cadastro com sucesso usando FAKER', () => {
         //Resultado esperado
         cy.url().should('include', 'dashboard')
         cy.get('#user-name').should('contain', nome)
+    });
+
+    it.only('Deve preencher cadastro com sucesso - Usando comando customizado', () => {
+        let email = `teste${Date.now()}@teste.com`
+        let nome = faker.person.fullName({ sex: 'female'})
+        let telefone = `${Date.now()}`
+        cy.preencherCadastro(
+            nome,
+            email,
+            telefone,
+            'Teste@123',
+            'Teste@123'
+        )  
+        cy.url().should('include', 'dashboard')
     });
 
 });
