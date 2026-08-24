@@ -1,12 +1,14 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  allowCypressEnv: false,
+  allowCypressEnv: true,
 
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-  baseUrl:'http://localhost:3000/'
+  baseUrl:'http://localhost:3000/',
+  projectId: "agd33f",
+  video: true
   },
 });
